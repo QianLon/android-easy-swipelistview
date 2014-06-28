@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="75dp">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/back"
+        android:tag="back">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:id="@+id/entry_listview_view_delete"
+            android:background="@drawable/button_red">
+        <TextView
+            android:id="@+id/entry_listview_textview_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Delete" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/front"
+        android:tag="front">
+
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/button_green">
+            <TextView
+                android:gravity="center"
+                android:id="@+id/entry_listview_textview_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:layout_centerInParent="true"
+                android:text="Entry" />
+
+            </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

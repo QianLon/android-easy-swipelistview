@@ -25,7 +25,11 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
@@ -373,6 +377,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * Unselected choice state in item
      */
     protected int dismiss(int position) {
+        opened.remove(position);
         int start = swipeListView.getFirstVisiblePosition();
         int end = swipeListView.getLastVisiblePosition();
         View view = swipeListView.getChildAt(position - start);
@@ -404,12 +409,18 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * Reset the state of front view when the it's recycled by ListView
      *
      * @param frontView view to re-draw
-     * 
      */
-    protected void reloadSwipeStateInView(View frontView) {
-    	 if(this.swipeClosesAllItemsWhenListMoves){
-    		 frontView.setTranslationX(0f);
-         }
+    protected void reloadSwipeStateInView(View frontView, int position) {
+        if (!opened.get(position)) {
+            setTranslationX(frontView, 0.0f);
+        } else {
+            if (openedRight.get(position)) {
+                setTranslationX(frontView, swipeListView.getWidth());
+            } else {
+                setTranslationX(frontView, -swipeListView.getWidth());
+            }
+        }
+
     }
 
     /**
@@ -796,6 +807,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                     swap = true;
                     swapRight = deltaX > 0;
                 }
+
+
                 generateAnimate(frontView, swap, swapRight, downPosition);
                 if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_CHOICE) {
                     swapChoiceState(downPosition);

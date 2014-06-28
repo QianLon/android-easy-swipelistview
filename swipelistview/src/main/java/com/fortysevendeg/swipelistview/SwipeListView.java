@@ -228,8 +228,8 @@ public class SwipeListView extends ListView {
      * @param position    position in list
      */
     public void recycle(View convertView, int position) {
-        touchListener.reloadChoiceStateInView(convertView.findViewById(swipeFrontView), position);
-        touchListener.reloadSwipeStateInView(convertView.findViewById(swipeFrontView));
+        //touchListener.reloadChoiceStateInView(convertView.findViewById(swipeFrontView), position);
+        touchListener.reloadSwipeStateInView(convertView.findViewById(swipeFrontView), position);
     }
 
     /**
@@ -275,11 +275,13 @@ public class SwipeListView extends ListView {
         super.setAdapter(adapter);
         touchListener.resetItems();
         adapter.registerDataSetObserver(new DataSetObserver() {
+
             @Override
             public void onChanged() {
                 super.onChanged();
                 onListChanged();
-                touchListener.resetItems();
+                //touchListener.resetItems();
+
             }
         });
     }
