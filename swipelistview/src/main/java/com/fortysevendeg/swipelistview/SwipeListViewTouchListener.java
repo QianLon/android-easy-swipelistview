@@ -104,8 +104,6 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
     private int oldSwipeActionRight;
     private int oldSwipeActionLeft;
 
-    private boolean isDismissing = false;
-
     /**
      * Constructor
      *
