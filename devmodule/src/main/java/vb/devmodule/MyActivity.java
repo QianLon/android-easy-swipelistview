@@ -23,6 +23,8 @@ public class MyActivity extends Activity implements MyAdapter.MyAdapterCallbacks
 
         mListView = (SwipeListView) findViewById(R.id.activity_my_listview);
         mListView.setSwipeOpenOnLongPress(false);
+
+
         mStrings = new ArrayList<String>();
 
         for (int i = 0; i < 50; i++) {
@@ -36,7 +38,10 @@ public class MyActivity extends Activity implements MyAdapter.MyAdapterCallbacks
             @Override
             public void onDismiss(int[] reverseSortedPositions) {
                 super.onDismiss(reverseSortedPositions);
-                mStrings.remove(reverseSortedPositions[0]);
+                for (int i = 0; i < reverseSortedPositions.length; i++) {
+                    mStrings.remove(reverseSortedPositions[0]);
+                }
+
                 mAdapter.notifyDataSetChanged();
             }
         });

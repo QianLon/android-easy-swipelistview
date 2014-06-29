@@ -378,6 +378,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      */
     protected int dismiss(int position) {
         opened.remove(position);
+        checked.remove(position);
         int start = swipeListView.getFirstVisiblePosition();
         int end = swipeListView.getLastVisiblePosition();
         View view = swipeListView.getChildAt(position - start);

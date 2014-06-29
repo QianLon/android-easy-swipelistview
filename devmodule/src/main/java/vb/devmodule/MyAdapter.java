@@ -1,6 +1,7 @@
 package vb.devmodule;
 
 import android.app.Activity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -58,6 +59,7 @@ public class MyAdapter extends BaseAdapter {
             holder.viewDelete = (View) view.findViewById(R.id.entry_listview_view_delete);
             view.setTag(holder);
         }
+
         mListView.recycle(view, i);
 
         ViewHolder holder = (ViewHolder) view.getTag();

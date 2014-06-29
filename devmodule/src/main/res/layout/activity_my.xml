@@ -14,8 +14,8 @@
         swipe:swipeBackView="@+id/back"
         swipe:swipeCloseAllItemsWhenMoveList="true"
         swipe:swipeMode="left"
-        swipe:swipeDrawableChecked="@android:color/holo_green_light"
-        swipe:swipeDrawableUnchecked="@android:color/holo_green_light"
+        swipe:swipeActionLeft="reveal"
+
         />
 
 </RelativeLayout>
