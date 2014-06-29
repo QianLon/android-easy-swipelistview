@@ -1,11 +1,10 @@
-package vb.devmodule;
+package com.swipelistview.example.dismiss;
 
 import android.app.Activity;
 import android.os.Bundle;
 
 import com.fortysevendeg.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.swipelistview.SwipeListView;
-import com.fortysevendeg.swipelistview.SwipeListViewListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +18,9 @@ public class MyActivity extends Activity implements MyAdapter.MyAdapterCallbacks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.my_activity);
 
-        mListView = (SwipeListView) findViewById(R.id.activity_my_listview);
+        mListView = (SwipeListView) findViewById(R.id.my_activity_my_listview);
         mListView.setSwipeOpenOnLongPress(false);
 
 
@@ -52,9 +51,6 @@ public class MyActivity extends Activity implements MyAdapter.MyAdapterCallbacks
 
     @Override
     public void onClickDelete(int i) {
-        i = i;
         mListView.dismiss(i);
-        //mListView.closeAnimate(i);
-
     }
 }

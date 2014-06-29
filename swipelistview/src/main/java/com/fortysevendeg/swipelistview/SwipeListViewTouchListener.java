@@ -104,6 +104,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
     private int oldSwipeActionRight;
     private int oldSwipeActionLeft;
 
+    private boolean isDismissing = false;
+
     /**
      * Constructor
      *
@@ -374,7 +376,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
     }
 
     /**
-     * Unselected choice state in item
+     * Dismiss an item.
+     * @param position is the position of the item to delete.
+     * @return 0 if the item is not visible. Otherwise return the height of the cell to dismiss.
      */
     protected int dismiss(int position) {
         opened.remove(position);
@@ -992,6 +996,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @param dismissPosition Position of list
      */
     protected void performDismiss(final View dismissView, final int dismissPosition, boolean doPendingDismiss) {
+        enableDisableViewGroup((ViewGroup) dismissView, false);
         final ViewGroup.LayoutParams lp = dismissView.getLayoutParams();
         final int originalHeight = dismissView.getHeight();
 
@@ -1009,6 +1014,13 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             });
         }
 
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                enableDisableViewGroup((ViewGroup) dismissView, true);
+            }
+        });
+
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -1021,10 +1033,17 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         animator.start();
     }
 
+    /**
+     * Remove all pending dismisses.
+     */
     protected void resetPendingDismisses() {
         pendingDismisses.clear();
     }
 
+    /**
+     * Will call {@link #removePendingDismisses(int)} in animationTime + 100 ms.
+     * @param originalHeight will be used to rest the cells height.
+     */
     protected void handlerPendingDismisses(final int originalHeight) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -1035,6 +1054,12 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         }, animationTime + 100);
     }
 
+    /**
+     * Will delete all pending dismisses.
+     * Will call callback onDismiss for all pending dismisses.
+     * Will reset all cell height to originalHeight.
+     * @param originalHeight is the height of the cell before animation.
+     */
     private void removePendingDismisses(int originalHeight) {
         // No active animations, process all pending dismisses.
         // Sort by descending position
@@ -1060,6 +1085,17 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 
         resetPendingDismisses();
 
+    }
+
+    public static void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
+        int childCount = viewGroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = viewGroup.getChildAt(i);
+            view.setEnabled(enabled);
+            if (view instanceof ViewGroup) {
+                enableDisableViewGroup((ViewGroup) view, enabled);
+            }
+        }
     }
 
 }
