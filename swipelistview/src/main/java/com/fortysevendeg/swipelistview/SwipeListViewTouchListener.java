@@ -308,6 +308,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         if (swipeListView.getAdapter() != null) {
             int count = swipeListView.getAdapter().getCount();
             for (int i = opened.size(); i <= count; i++) {
+
                 opened.add(false);
                 openedRight.add(false);
                 checked.add(false);
@@ -382,6 +383,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      */
     protected int dismiss(int position) {
         opened.remove(position);
+        openedRight.remove(position);
         checked.remove(position);
         int start = swipeListView.getFirstVisiblePosition();
         int end = swipeListView.getLastVisiblePosition();
@@ -416,7 +418,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @param frontView view to re-draw
      */
     protected void reloadSwipeStateInView(View frontView, int position) {
-        if (opened.get(position) != null) {
+        if (position < opened.size()) {
             if (this.swipeClosesAllItemsWhenListMoves && opened.get(position)) {
                 setTranslationX(frontView, 0.0f);
                 opened.set(position, false);
@@ -426,9 +428,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 setTranslationX(frontView, 0.0f);
             } else {
                 if (openedRight.get(position)) {
-                    setTranslationX(frontView, swipeListView.getWidth());
+                    setTranslationX(frontView, swipeListView.getWidth() - rightOffset);
                 } else {
-                    setTranslationX(frontView, -swipeListView.getWidth());
+                    setTranslationX(frontView, leftOffset - swipeListView.getWidth());
                 }
             }
         } else {
@@ -616,9 +618,11 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                             boolean aux = !opened.get(position);
                             opened.set(position, aux);
                             if (aux) {
-                                swipeListView.onOpened(position, swapRight);
                                 openedRight.set(position, swapRight);
+                                //opened.set(position, true);
+                                swipeListView.onOpened(position, swapRight);
                             } else {
+                                //opened.set(position, false);
                                 swipeListView.onClosed(position, openedRight.get(position));
                             }
                         }

@@ -289,7 +289,7 @@ public class SwipeListView extends ListView {
             public void onChanged() {
                 super.onChanged();
                 onListChanged();
-                //touchListener.resetItems();
+                touchListener.resetItems();
 
             }
         });

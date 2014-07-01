@@ -22,7 +22,8 @@ public class MyActivity extends Activity implements MyAdapter.MyAdapterCallbacks
 
         mListView = (SwipeListView) findViewById(R.id.my_activity_my_listview);
         mListView.setSwipeOpenOnLongPress(false);
-
+        mListView.setSwipeCloseAllItemsWhenMoveList(false);
+        mListView.setOffsetRight(300);
 
         mStrings = new ArrayList<String>();
 
