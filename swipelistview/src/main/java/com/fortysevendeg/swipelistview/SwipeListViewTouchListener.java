@@ -416,14 +416,23 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @param frontView view to re-draw
      */
     protected void reloadSwipeStateInView(View frontView, int position) {
-        if (!opened.get(position)) {
-            setTranslationX(frontView, 0.0f);
-        } else {
-            if (openedRight.get(position)) {
-                setTranslationX(frontView, swipeListView.getWidth());
-            } else {
-                setTranslationX(frontView, -swipeListView.getWidth());
+        if (opened.get(position) != null) {
+            if (this.swipeClosesAllItemsWhenListMoves && opened.get(position)) {
+                setTranslationX(frontView, 0.0f);
+                opened.set(position, false);
+                openedRight.set(position, false);
             }
+            if (!opened.get(position)) {
+                setTranslationX(frontView, 0.0f);
+            } else {
+                if (openedRight.get(position)) {
+                    setTranslationX(frontView, swipeListView.getWidth());
+                } else {
+                    setTranslationX(frontView, -swipeListView.getWidth());
+                }
+            }
+        } else {
+            setTranslationX(frontView, 0.0f);
         }
 
     }
