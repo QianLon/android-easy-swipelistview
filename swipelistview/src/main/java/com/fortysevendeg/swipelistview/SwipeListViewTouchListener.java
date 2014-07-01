@@ -382,9 +382,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @return 0 if the item is not visible. Otherwise return the height of the cell to dismiss.
      */
     protected int dismiss(int position) {
-        opened.remove(position);
-        openedRight.remove(position);
-        checked.remove(position);
+
         int start = swipeListView.getFirstVisiblePosition();
         int end = swipeListView.getLastVisiblePosition();
         View view = swipeListView.getChildAt(position - start);
@@ -1030,6 +1028,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+                opened.remove(dismissPosition);
+                openedRight.remove(dismissPosition);
+                checked.remove(dismissPosition);
                 enableDisableViewGroup((ViewGroup) dismissView, true);
             }
         });
