@@ -306,6 +306,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         if (swipeListView.getAdapter() != null) {
             int count = swipeListView.getAdapter().getCount();
             for (int i = opened.size(); i <= count; i++) {
+
                 opened.add(false);
                 openedRight.add(false);
                 checked.add(false);
@@ -343,6 +344,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         int count = lastChecked ? lastCount - 1 : lastCount + 1;
         if (lastCount == 0 && count == 1) {
             swipeListView.onChoiceStarted();
+            Log.i("swipe", "call closeOpenedItems from swapChoiceState");
             closeOpenedItems();
             setActionsTo(SwipeListView.SWIPE_ACTION_CHOICE);
         }
@@ -379,8 +381,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @return 0 if the item is not visible. Otherwise return the height of the cell to dismiss.
      */
     protected int dismiss(int position) {
-        opened.remove(position);
-        checked.remove(position);
+
         int start = swipeListView.getFirstVisiblePosition();
         int end = swipeListView.getLastVisiblePosition();
         View view = swipeListView.getChildAt(position - start);
@@ -414,14 +415,24 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @param frontView view to re-draw
      */
     protected void reloadSwipeStateInView(View frontView, int position) {
-        if (!opened.get(position)) {
-            setTranslationX(frontView, 0.0f);
-        } else {
-            if (openedRight.get(position)) {
-                setTranslationX(frontView, swipeListView.getWidth());
-            } else {
-                setTranslationX(frontView, -swipeListView.getWidth());
+        if (position < opened.size()) {
+            if (this.swipeClosesAllItemsWhenListMoves && opened.get(position)) {
+                // TODO : This should be done with animations.
+                setTranslationX(frontView, 0.0f);
+                opened.set(position, false);
+                openedRight.set(position, false);
             }
+            if (!opened.get(position)) {
+                setTranslationX(frontView, 0.0f);
+            } else {
+                if (openedRight.get(position)) {
+                    setTranslationX(frontView, swipeListView.getWidth() - rightOffset);
+                } else {
+                    setTranslationX(frontView, leftOffset - swipeListView.getWidth());
+                }
+            }
+        } else {
+            setTranslationX(frontView, 0.0f);
         }
 
     }
@@ -474,7 +485,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @param position Position of list
      */
     private void openAnimate(View view, int position) {
+        Log.i("swipe", "openAnimate " + position);
         if (!opened.get(position)) {
+            Log.i("swipe", "openAnimate " + position + " because it is closed according the model.");
             generateRevealAnimate(view, true, false, position);
         }
     }
@@ -565,6 +578,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         if (swap) {
+                            Log.i("swipe", "call closeOpenedItems from generateDismissAnimate");
                             closeOpenedItems();
                             performDismiss(view, position, true);
                         }
@@ -583,14 +597,22 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @param position  list position
      */
     private void generateRevealAnimate(final View view, final boolean swap, final boolean swapRight, final int position) {
+        Log.i("swipe", "generateRevealAnimate" + position);
         int moveTo = 0;
         if (opened.get(position)) {
+            // The cell was open :
             if (!swap) {
+                // No swap ask, i.e. come back to original position.
                 moveTo = openedRight.get(position) ? (int) (viewWidth - rightOffset) : (int) (-viewWidth + leftOffset);
+            } else {
+                // moveTo 0. If the cell was opened and ask swap, the view is reset.
             }
         } else {
+            // The cell was not open :
             if (swap) {
                 moveTo = swapRight ? (int) (viewWidth - rightOffset) : (int) (-viewWidth + leftOffset);
+            } else {
+                // moveTo 0. If the cell no opened, and ask no swap, the view is reset
             }
         }
 
@@ -604,10 +626,14 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         if (swap) {
                             boolean aux = !opened.get(position);
                             opened.set(position, aux);
+                            Log.i("swipe", "set opened " + aux + " at " + position);
                             if (aux) {
-                                swipeListView.onOpened(position, swapRight);
+                                // The view was closed before this animation.
                                 openedRight.set(position, swapRight);
+                                swipeListView.onOpened(position, swapRight);
                             } else {
+                                // The view was open before this animation.
+                                openedRight.set(position, false);
                                 swipeListView.onClosed(position, openedRight.get(position));
                             }
                         }
@@ -653,6 +679,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             public void onScrollStateChanged(AbsListView absListView, int scrollState) {
                 setEnabled(scrollState != AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
                 if (swipeClosesAllItemsWhenListMoves && scrollState == SCROLL_STATE_TOUCH_SCROLL) {
+                    Log.i("swipe", "call closeOpenedItems from onScrollStateChanged");
                     closeOpenedItems();
                 }
                 if (scrollState == SCROLL_STATE_TOUCH_SCROLL) {
@@ -669,6 +696,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         }
                     }, 500);
                 }
+                swipeListView.onScrollStateChanged(absListView, scrollState);
             }
 
             @Override
@@ -697,6 +725,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         swipeListView.onLastListItem();
                     }
                 }
+
+                swipeListView.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
+
             }
         };
     }
@@ -705,6 +736,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * Close all opened items
      */
     void closeOpenedItems() {
+        Log.i("swipe", "closeOpenedItems");
         if (opened != null) {
             int start = swipeListView.getFirstVisiblePosition();
             int end = swipeListView.getLastVisiblePosition();
@@ -1002,6 +1034,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 
         if (doPendingDismiss) {
             animator.addListener(new AnimatorListenerAdapter() {
+
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     --dismissAnimationRefCount;
@@ -1013,8 +1046,25 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         }
 
         animator.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                if (swipeClosesAllItemsWhenListMoves) {
+                    closeOpenedItems();
+                }
+
+            }
+
             @Override
             public void onAnimationEnd(Animator animation) {
+
+                // Update the model after animation finish.
+                opened.remove(dismissPosition);
+                openedRight.remove(dismissPosition);
+                checked.remove(dismissPosition);
+
+                // Re enable user interraction.
                 enableDisableViewGroup((ViewGroup) dismissView, true);
             }
         });
@@ -1095,5 +1145,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             }
         }
     }
+
+
 
 }
