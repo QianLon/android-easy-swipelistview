@@ -32,7 +32,7 @@ uploadArchives {
             repository(url: "file:../../vb-maven/release/")
             pom.groupId = 'com.swipelistview.library'
             pom.artifactId = 'swipelistviewdev'
-            pom.version = '0.0.4'
+            pom.version = '0.0.14'
         }
     }
 }
