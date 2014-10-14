@@ -3,9 +3,8 @@ package vb.devmodule;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.fortysevendeg.swipelistview.BaseSwipeListViewListener;
-import com.fortysevendeg.swipelistview.SwipeListView;
-import com.fortysevendeg.swipelistview.SwipeListViewListener;
+import com.vincentbrison.openlibraries.android.swipelistview.BaseSwipeListViewListener;
+import com.vincentbrison.openlibraries.android.swipelistview.SwipeListView;
 
 import java.util.ArrayList;
 import java.util.List;

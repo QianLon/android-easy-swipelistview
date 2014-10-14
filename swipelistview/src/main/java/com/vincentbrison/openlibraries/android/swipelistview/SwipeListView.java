@@ -1,4 +1,20 @@
 /*
+ * Copyright 2014 Vincent Brison.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
  * Copyright (C) 2013 47 Degrees, LLC
  * http://47deg.com
  * hello@47deg.com
@@ -16,7 +32,7 @@
  * limitations under the License.
  */
 
-package com.fortysevendeg.swipelistview;
+package com.vincentbrison.openlibraries.android.swipelistview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -178,19 +194,19 @@ public class SwipeListView extends ListView {
         int swipeActionRight = SWIPE_ACTION_REVEAL;
 
         if (attrs != null) {
-            TypedArray styled = getContext().obtainStyledAttributes(attrs, R.styleable.SwipeListView);
-            swipeMode = styled.getInt(R.styleable.SwipeListView_swipeMode, SWIPE_MODE_BOTH);
-            swipeActionLeft = styled.getInt(R.styleable.SwipeListView_swipeActionLeft, SWIPE_ACTION_REVEAL);
-            swipeActionRight = styled.getInt(R.styleable.SwipeListView_swipeActionRight, SWIPE_ACTION_REVEAL);
-            swipeOffsetLeft = styled.getDimension(R.styleable.SwipeListView_swipeOffsetLeft, 0);
-            swipeOffsetRight = styled.getDimension(R.styleable.SwipeListView_swipeOffsetRight, 0);
-            swipeOpenOnLongPress = styled.getBoolean(R.styleable.SwipeListView_swipeOpenOnLongPress, true);
-            swipeAnimationTime = styled.getInteger(R.styleable.SwipeListView_swipeAnimationTime, 0);
-            swipeCloseAllItemsWhenMoveList = styled.getBoolean(R.styleable.SwipeListView_swipeCloseAllItemsWhenMoveList, true);
-            swipeDrawableChecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableChecked, 0);
-            swipeDrawableUnchecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableUnchecked, 0);
-            swipeFrontView = styled.getResourceId(R.styleable.SwipeListView_swipeFrontView, 0);
-            swipeBackView = styled.getResourceId(R.styleable.SwipeListView_swipeBackView, 0);
+            TypedArray styled = getContext().obtainStyledAttributes(attrs, com.vincentbrison.swipelistview.R.styleable.SwipeListView);
+            swipeMode = styled.getInt(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeMode, SWIPE_MODE_BOTH);
+            swipeActionLeft = styled.getInt(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeActionLeft, SWIPE_ACTION_REVEAL);
+            swipeActionRight = styled.getInt(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeActionRight, SWIPE_ACTION_REVEAL);
+            swipeOffsetLeft = styled.getDimension(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeOffsetLeft, 0);
+            swipeOffsetRight = styled.getDimension(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeOffsetRight, 0);
+            swipeOpenOnLongPress = styled.getBoolean(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeOpenOnLongPress, true);
+            swipeAnimationTime = styled.getInteger(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeAnimationTime, 0);
+            swipeCloseAllItemsWhenMoveList = styled.getBoolean(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeCloseAllItemsWhenMoveList, true);
+            swipeDrawableChecked = styled.getResourceId(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeDrawableChecked, 0);
+            swipeDrawableUnchecked = styled.getResourceId(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeDrawableUnchecked, 0);
+            swipeFrontView = styled.getResourceId(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeFrontView, 0);
+            swipeBackView = styled.getResourceId(com.vincentbrison.swipelistview.R.styleable.SwipeListView_swipeBackView, 0);
             styled.recycle();
         }
 

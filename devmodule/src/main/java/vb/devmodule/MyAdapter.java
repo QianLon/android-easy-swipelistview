@@ -1,13 +1,12 @@
 package vb.devmodule;
 
 import android.app.Activity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.fortysevendeg.swipelistview.SwipeListView;
+import com.vincentbrison.openlibraries.android.swipelistview.SwipeListView;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
