@@ -1,4 +1,4 @@
-package vb.devmodule;
+package com.swipelistview.example.dismiss;
 
 import android.app.Activity;
 import android.view.View;
@@ -51,11 +51,11 @@ public class MyAdapter extends BaseAdapter {
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = mContext.get().getLayoutInflater().inflate(R.layout.entry_my_listview, null);
+            view = mContext.get().getLayoutInflater().inflate(com.swipelistview.example.dismiss.R.layout.entry_my_listview, null);
             ViewHolder holder = new ViewHolder();
-            holder.textViewBack = (TextView) view.findViewById(R.id.entry_listview_textview_delete);
-            holder.textViewFront = (TextView) view.findViewById(R.id.entry_listview_textview_entry);
-            holder.viewDelete = (View) view.findViewById(R.id.entry_listview_view_delete);
+            holder.textViewBack = (TextView) view.findViewById(com.swipelistview.example.dismiss.R.id.entry_listview_textview_delete);
+            holder.textViewFront = (TextView) view.findViewById(com.swipelistview.example.dismiss.R.id.entry_listview_textview_entry);
+            holder.viewDelete = (View) view.findViewById(com.swipelistview.example.dismiss.R.id.entry_listview_view_delete);
             view.setTag(holder);
         }
 

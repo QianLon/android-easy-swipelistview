@@ -1,4 +1,4 @@
-package vb.devmodule;
+package com.swipelistview.example.dismiss;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,11 +18,12 @@ public class MyActivity extends Activity implements MyAdapter.MyAdapterCallbacks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.my_activity);
 
-        mListView = (SwipeListView) findViewById(R.id.activity_my_listview);
-        mListView.setSwipeOpenOnLongPress(false);
-
+        mListView = (SwipeListView) findViewById(R.id.my_activity_my_listview);
+        mListView.setSwipeOpenOnLongPress(true);
+        mListView.setSwipeCloseAllItemsWhenMoveList(true);
+        mListView.setOffsetRight(300);
 
         mStrings = new ArrayList<String>();
 
@@ -51,9 +52,6 @@ public class MyActivity extends Activity implements MyAdapter.MyAdapterCallbacks
 
     @Override
     public void onClickDelete(int i) {
-        i = i;
         mListView.dismiss(i);
-        //mListView.closeAnimate(i);
-
     }
 }

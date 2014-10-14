@@ -34,6 +34,8 @@
 
 package com.vincentbrison.openlibraries.android.swipelistview;
 
+import android.widget.AbsListView;
+
 /**
  * Listener to get callback notifications for the SwipeListView
  */
@@ -132,5 +134,9 @@ public interface SwipeListViewListener {
      * User is in last item of list
      */
     void onLastListItem();
+
+    void onScrollStateChanged(AbsListView absListView, int scrollState);
+
+    void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount);
 
 }

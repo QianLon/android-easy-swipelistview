@@ -44,6 +44,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -142,7 +143,6 @@ public class SwipeListView extends ListView {
      * Internal touch listener
      */
     private SwipeListViewTouchListener touchListener;
-
 
     /**
      * If you create a View programmatically you need send back and front identifier
@@ -305,7 +305,7 @@ public class SwipeListView extends ListView {
             public void onChanged() {
                 super.onChanged();
                 onListChanged();
-                //touchListener.resetItems();
+                touchListener.resetItems();
 
             }
         });
@@ -518,6 +518,18 @@ public class SwipeListView extends ListView {
     protected void onMove(int position, float x) {
         if (swipeListViewListener != null && position != ListView.INVALID_POSITION) {
             swipeListViewListener.onMove(position, x);
+        }
+    }
+
+    protected void onScrollStateChanged(AbsListView absListView, int scrollState) {
+        if (swipeListViewListener != null) {
+            swipeListViewListener.onScrollStateChanged(absListView, scrollState);
+        }
+    }
+
+    protected void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if (swipeListViewListener != null) {
+            swipeListViewListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
         }
     }
 

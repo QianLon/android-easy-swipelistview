@@ -1,5 +1,7 @@
 package com.vincentbrison.openlibraries.android.swipelistview;
 
+import android.widget.AbsListView;
+
 public class BaseSwipeListViewListener implements SwipeListViewListener {
     @Override
     public void onOpened(int position, boolean toRight) {
@@ -60,5 +62,15 @@ public class BaseSwipeListViewListener implements SwipeListViewListener {
 
     @Override
     public void onLastListItem() {
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+
     }
 }
