@@ -20,6 +20,6 @@ android {
 }
 
 dependencies {
-    compile project (":swipelistview")
+    compile project (":lib")
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

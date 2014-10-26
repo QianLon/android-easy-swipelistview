@@ -1,1 +1,1 @@
-include ':swipelistview', ':devmodule'
+include ':lib', ':demo-app'
