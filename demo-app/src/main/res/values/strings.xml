@@ -3,4 +3,7 @@
 
     <string name="app_name">SwipeListView demo</string>
 
+    <!-- Strings for : activity demo !-->
+    <string name="activity_demo_launch">Launch demo</string>
+
 </resources>

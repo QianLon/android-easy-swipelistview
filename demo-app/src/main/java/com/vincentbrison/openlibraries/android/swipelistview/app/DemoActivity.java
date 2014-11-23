@@ -19,7 +19,7 @@ public class DemoActivity extends Activity implements DemoAdapter.MyAdapterCallb
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_activity);
+        setContentView(R.layout.activity_demo);
 
         mListView = (SwipeListView) findViewById(R.id.my_activity_my_listview);
         mListView.setSwipeOpenOnLongPress(true);
