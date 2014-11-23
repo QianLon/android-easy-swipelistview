@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.vincentbrison.openlibraries.android.swipelistview.app.DemoParameterActivity"
+            android:name="com.vincentbrison.openlibraries.android.swipelistview.app.ActivityParameter"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.vincentbrison.openlibraries.android.swipelistview.app.DemoActivity"/>
+        <activity android:name="com.vincentbrison.openlibraries.android.swipelistview.app.ActivityDemo"/>
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.vincentbrison.openlibraries.android.swipelistview.id.R;
 
-public class DemoParameterActivity extends Activity {
+public class ActivityParameter extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class DemoParameterActivity extends Activity {
         findViewById(R.id.activity_demo_button_launch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DemoParameterActivity.this, DemoActivity.class);
+                Intent intent = new Intent(ActivityParameter.this, ActivityDemo.class);
                 startActivity(intent);
             }
         });

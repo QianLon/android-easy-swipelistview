@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Brize on 28/06/2014.
  */
-public class DemoAdapter extends BaseAdapter {
+public class AdapterDemo extends BaseAdapter {
 
     public interface MyAdapterCallbacks {
         public void onClickDelete(int i);
@@ -26,7 +26,7 @@ public class DemoAdapter extends BaseAdapter {
     private MyAdapterCallbacks mCallbacks;
     private SwipeListView mListView;
 
-    public DemoAdapter(List<String> strings, Activity context, MyAdapterCallbacks callbacks, SwipeListView listview) {
+    public AdapterDemo(List<String> strings, Activity context, MyAdapterCallbacks callbacks, SwipeListView listview) {
         mStrings = strings;
         mContext = new WeakReference<Activity>(context);
         mCallbacks = callbacks;
@@ -69,7 +69,7 @@ public class DemoAdapter extends BaseAdapter {
         holder.viewDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DemoAdapter.this.mCallbacks.onClickDelete(i);
+                AdapterDemo.this.mCallbacks.onClickDelete(i);
             }
         });
 

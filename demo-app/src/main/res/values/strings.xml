@@ -3,7 +3,11 @@
 
     <string name="app_name">SwipeListView demo</string>
 
+    <!-- Strings for : activity parameter !-->
+    <string name="activity_parameter_launch">Launch demo</string>
+
     <!-- Strings for : activity demo !-->
-    <string name="activity_demo_launch">Launch demo</string>
+    <string name="activity_demo_plus">Add an entry</string>
+
 
 </resources>

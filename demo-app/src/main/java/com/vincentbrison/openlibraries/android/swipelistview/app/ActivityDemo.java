@@ -2,6 +2,7 @@ package com.vincentbrison.openlibraries.android.swipelistview.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.vincentbrison.openlibraries.android.swipelistview.BaseSwipeListViewListener;
 import com.vincentbrison.openlibraries.android.swipelistview.SwipeListView;
@@ -10,11 +11,12 @@ import com.vincentbrison.openlibraries.android.swipelistview.id.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DemoActivity extends Activity implements DemoAdapter.MyAdapterCallbacks{
+public class ActivityDemo extends Activity implements AdapterDemo.MyAdapterCallbacks{
 
     private SwipeListView mListView;
-    private DemoAdapter mAdapter;
-    private List<String> mStrings;
+    private AdapterDemo mAdapter;
+    private List<String> mEntries;
+    private int mLastIdEntry = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +28,14 @@ public class DemoActivity extends Activity implements DemoAdapter.MyAdapterCallb
         mListView.setSwipeCloseAllItemsWhenMoveList(true);
         mListView.setOffsetRight(300);
 
-        mStrings = new ArrayList<String>();
+        mEntries = new ArrayList<String>();
 
-        for (int i = 0; i < 50; i++) {
-            mStrings.add("Entry number " + i);
+        for (int i = 0; i < 5; i++) {
+            mEntries.add("Entry number " + i);
+            mLastIdEntry = i;
         }
 
-        mAdapter = new DemoAdapter(mStrings, this, this, mListView);
+        mAdapter = new AdapterDemo(mEntries, this, this, mListView);
         mListView.setAdapter(mAdapter);
 
         mListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
@@ -40,9 +43,18 @@ public class DemoActivity extends Activity implements DemoAdapter.MyAdapterCallb
             public void onDismiss(int[] reverseSortedPositions) {
                 super.onDismiss(reverseSortedPositions);
                 for (int i = 0; i < reverseSortedPositions.length; i++) {
-                    mStrings.remove(reverseSortedPositions[0]);
+                    mEntries.remove(reverseSortedPositions[0]);
                 }
 
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        findViewById(R.id.activity_demo_button_plus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String entry = new String("Entry number " + ++mLastIdEntry);
+                mEntries.add(entry);
                 mAdapter.notifyDataSetChanged();
             }
         });
