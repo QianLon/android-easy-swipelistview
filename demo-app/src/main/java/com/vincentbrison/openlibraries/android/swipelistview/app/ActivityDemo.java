@@ -1,8 +1,14 @@
 package com.vincentbrison.openlibraries.android.swipelistview.app;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.vincentbrison.openlibraries.android.swipelistview.BaseSwipeListViewListener;
 import com.vincentbrison.openlibraries.android.swipelistview.SwipeListView;
@@ -58,9 +64,28 @@ public class ActivityDemo extends Activity implements AdapterDemo.MyAdapterCallb
                 mAdapter.notifyDataSetChanged();
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_demo, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.activity_demo_action_settings:
+                DialogFragment dialog = new FragmentDemoSettings();
+                dialog.show(getFragmentManager(), "dialog");
+                break;
+            default:
+                break;
+        }
 
+        return true;
     }
 
     @Override
