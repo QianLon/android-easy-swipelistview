@@ -1,3 +1,7 @@
+Deprecated
+==========
+This project will no more be maintained. You should rely on [AndroidSwipeLayout](https://github.com/daimajia/AndroidSwipeLayout) to implement such behaviour.
+
 Disclaimer
 ==========
 This project is a fork from [the swipelistview lib from 47deg](https://github.com/47deg/android-swipelistview).
